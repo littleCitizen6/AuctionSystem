@@ -17,7 +17,7 @@ namespace Agents
 
         public override void IsIntresting(ISellManeger sellManeger)
         {
-            if(_rander.Next(1,101)<=_percentage)
+            if(_rander.Next(1,101)<=_percentage && sellManeger.SellInfo.LeadingBuyer != this)
             {
                 sellManeger.Subscribe(this);
             }
@@ -25,7 +25,7 @@ namespace Agents
 
         public override void IsWantToRaise(ISellManeger sellManeger)
         {
-            if (_rander.Next(1, 101) <= _percentage)
+            if (_rander.Next(1, 101) <= _percentage && sellManeger.SellInfo.LeadingBuyer != this)
             {
                 sellManeger.Offer(this, sellManeger.SellInfo.CurrentPrice + sellManeger.SellInfo.MinGrowth);
             }
