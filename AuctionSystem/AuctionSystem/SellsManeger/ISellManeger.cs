@@ -1,10 +1,17 @@
-﻿using System;
+﻿using AuctionSystem.Common;
+using AuctionSystem.SellsInfo;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AuctionSystem.SellsManeger
 {
-    interface ISellManeger
+    public interface ISellManeger
     {
+        ISellInfo SellInfo { get; set; }
+        void Offer(IBuyer buyer, double price);
+        void Subscribe(IBuyer buyer);
+        int TimeToEnd { get; set; }
+        void SellOver();
     }
 }

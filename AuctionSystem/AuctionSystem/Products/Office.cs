@@ -4,7 +4,10 @@ using System.Text;
 
 namespace AuctionSystem.Products
 {
-    class Office
+    public class Office : Building
     {
+        public Office(List<double> roomsSize, Dictionary<string, string> prop) : base(roomsSize, prop)
+        {
+        }
     }
 }
