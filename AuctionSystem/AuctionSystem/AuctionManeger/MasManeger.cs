@@ -35,8 +35,7 @@ namespace AuctionSystem.AuctionManeger
                 DateTime excTime = Sells.Keys.Min();
                 if (Sells.TryRemove(excTime, out sellsAtTime))
                 {
-                    Task executer = new Task(() =>
-                    {
+                    Task executer = new Task(() =>{
                         while (excTime > DateTime.Now)
                         {
                             Task.Delay(excTime - DateTime.Now);
@@ -44,8 +43,7 @@ namespace AuctionSystem.AuctionManeger
                         Parallel.ForEach<ISellManeger>(sellsAtTime, (sell) => {
                             onStart?.Invoke(sell);
                             sell.StartSell();
-                            }
-                        );//ToDo: add start sell for each sell and combine it in event
+                            });
                     });
                 }
             }
