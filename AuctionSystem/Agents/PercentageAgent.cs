@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Agents
 {
@@ -17,18 +18,24 @@ namespace Agents
 
         public override void IsIntresting(ISellManeger sellManeger)
         {
-            if(_rander.Next(1,101)<=_percentage && sellManeger.SellInfo.LeadingBuyer != this)
-            {
-                sellManeger.Subscribe(this);
-            }
+            Task t = new Task(() => { 
+                if(_rander.Next(1,101)<=_percentage && sellManeger.SellInfo.LeadingBuyer != this)
+                {
+                    sellManeger.Subscribe(this);
+                }
+            });
+            t.Start();
         }
 
         public override void IsWantToRaise(ISellManeger sellManeger)
         {
-            if (_rander.Next(1, 101) <= _percentage && sellManeger.SellInfo.LeadingBuyer != this)
-            {
-                sellManeger.Offer(this, sellManeger.SellInfo.CurrentPrice + sellManeger.SellInfo.MinGrowth);
-            }
+            Task t = new Task(() => { 
+                if (_rander.Next(1, 101) <= _percentage && sellManeger.SellInfo.LeadingBuyer != this)
+                {
+                    sellManeger.Offer(this, sellManeger.SellInfo.CurrentPrice + sellManeger.SellInfo.MinGrowth);
+                }
+            });
+            t.Start();
         }
     }
 }

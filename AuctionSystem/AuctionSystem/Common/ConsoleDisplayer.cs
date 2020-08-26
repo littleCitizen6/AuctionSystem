@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AuctionSystem.Common
 {
-    class ConsoleDisplayer : IDisplayer
+    public class ConsoleDisplayer : IDisplayer
     {
         public void Display(string message)
         {

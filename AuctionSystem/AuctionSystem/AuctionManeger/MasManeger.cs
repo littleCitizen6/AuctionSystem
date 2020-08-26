@@ -17,6 +17,7 @@ namespace AuctionSystem.AuctionManeger
         public IDisplayer _displayer;
         public MasManeger(IDisplayer displayer)
         {
+            Sells = new ConcurrentDictionary<DateTime, List<ISellManeger>>();
             _displayer = displayer;
             _dispeseAtEnd = new List<IBuyer>();
         }
@@ -31,12 +32,14 @@ namespace AuctionSystem.AuctionManeger
 
         public void Run()
         {
+            List<Task> tasks = new List<Task>();
             while (Sells.Keys.Count>0)
             {
                 List<ISellManeger> sellsAtTime;
                 DateTime excTime = Sells.Keys.Min();
                 if (Sells.TryRemove(excTime, out sellsAtTime))
                 {
+                    _displayer.Display($"extract sell {sellsAtTime[0].SellInfo.Id}");
                     Task executer = new Task(() =>{
                         while (excTime > DateTime.Now)
                         {
@@ -48,8 +51,18 @@ namespace AuctionSystem.AuctionManeger
                             sell.StartSell();
                             });
                     });
+                    tasks.Add(executer);
                     executer.Start();
                 }
+            }
+            WaitForAll(tasks);
+        }
+
+        private void WaitForAll(List<Task> tasks)
+        {
+            foreach (var task in tasks)
+            {
+                task.Wait();
             }
         }
 

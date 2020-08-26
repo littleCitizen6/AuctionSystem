@@ -77,6 +77,7 @@ namespace AuctionSystem.SellsManeger
         {
             _displayer.Display($"start sell {SellInfo.Id} on {SellInfo.Product.Properties["name"]}");
             Thread.Sleep(SellInfo.IntervalTime);//ToDo: check if need to be inside of task with task delay
+            _displayer.Display("finish wait for subscriptions");
             if (_disposeAtEnd.Count==0)
             {
                 SellOver();
@@ -84,11 +85,13 @@ namespace AuctionSystem.SellsManeger
             else
             {
                 Task manege = ManegeSell();
-                manege.Start();
+               // manege.Start();
+                manege.Wait();
             }
         }
         private async Task ManegeSell()
         {
+            _displayer.Display("started task without start");
             var lastChanged = SellInfo.LastChange;
             while (SellInfo.State < SellState.finished)
             {
