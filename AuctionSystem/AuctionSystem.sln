@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionSystem", "AuctionSys
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agents", "Agents\Agents.csproj", "{FE7A86ED-E192-4C7C-BF5B-14FD51D9549C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunChecker", "RunChecker\RunChecker.csproj", "{622766BD-6E1E-443C-BCC2-A1EAA2DE3C4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FE7A86ED-E192-4C7C-BF5B-14FD51D9549C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE7A86ED-E192-4C7C-BF5B-14FD51D9549C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE7A86ED-E192-4C7C-BF5B-14FD51D9549C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622766BD-6E1E-443C-BCC2-A1EAA2DE3C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622766BD-6E1E-443C-BCC2-A1EAA2DE3C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622766BD-6E1E-443C-BCC2-A1EAA2DE3C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622766BD-6E1E-443C-BCC2-A1EAA2DE3C4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
