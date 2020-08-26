@@ -3,6 +3,7 @@ using AuctionSystem.SellsInfo;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AuctionSystem.SellsManeger
@@ -15,8 +16,6 @@ namespace AuctionSystem.SellsManeger
         private event Action<ISellManeger> onOffer;
         public ISellInfo SellInfo { get; set; }
         
-        private double? TimeFromLastCall => (DateTime.Now - SellInfo.LastChange).TotalMilliseconds;//ToDo: check if necessery
-
         public MasSellManeger(IDisplayer displayer)
         {
             _displayer = displayer;
@@ -34,6 +33,7 @@ namespace AuctionSystem.SellsManeger
                     SellInfo.CurrentPrice = price;
                     SellInfo.LeadingBuyer = buyer;
                     SellInfo.LastChange = DateTime.Now;
+                    SellInfo.State = SellState.InProgress;
                 }
             }
             if (offerIsValid)// same if as before because i want the lock part will be as short as i can
@@ -56,9 +56,9 @@ namespace AuctionSystem.SellsManeger
             }
             else
             {
-                _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is over because no one was intresting");
+                _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is canceled because no one was intresting");
             }
-            SellInfo.State = SellState.finished;
+            SellInfo.State = SellState.finished;//atomic function
         }
 
         public void Subscribe(IBuyer buyer)
@@ -70,7 +70,39 @@ namespace AuctionSystem.SellsManeger
                 SellInfo.State = SellState.InProgress;
             }
         }
-        //ToDo:make start method() task.delay => if agents =>start sell >><< close  
-        public void Start() { }
+        public void StartSell() //notice that this happend after the event
+        {  
+            Thread.Sleep(SellInfo.IntervalTime);//ToDo: check if need to be inside of task with task delay
+            if (_disposeAtEnd.Count==0)
+            {
+                SellOver();
+            }
+            else
+            {
+                Task manege = ManegeSell();
+                manege.Start();
+            }
+        }
+        private async Task ManegeSell()
+        {
+            var lastChanged = SellInfo.LastChange;
+            while (SellInfo.State < SellState.finished)
+            {
+                onOffer?.Invoke(this);
+                await Task.Delay(SellInfo.IntervalTime);
+                if (lastChanged == SellInfo.LastChange)
+                {
+                    lock (_locker)
+                    {
+                        SellInfo.State++;// not atomic func
+                    }
+                }
+                else
+                {
+                    lastChanged = SellInfo.LastChange;// atomic func
+                }
+            }
+            SellOver();
+        }
     }
 }

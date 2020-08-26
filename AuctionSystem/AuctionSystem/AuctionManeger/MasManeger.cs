@@ -41,7 +41,11 @@ namespace AuctionSystem.AuctionManeger
                         {
                             Task.Delay(excTime - DateTime.Now);
                         }
-                        Parallel.ForEach<ISellManeger>(sellsAtTime, sell => onStart?.Invoke(sell));//ToDo: add start sell for each sell and combine it in event
+                        Parallel.ForEach<ISellManeger>(sellsAtTime, (sell) => {
+                            onStart?.Invoke(sell);
+                            sell.StartSell();
+                            }
+                        );//ToDo: add start sell for each sell and combine it in event
                     });
                 }
             }

@@ -12,5 +12,6 @@ namespace AuctionSystem.SellsManeger
         void Offer(IBuyer buyer, double price);
         void Subscribe(IBuyer buyer);
         void SellOver();
+        void StartSell();
     }
 }

@@ -8,19 +8,15 @@ namespace AuctionSystem.SellsInfo
 {
     public class BasicSellInfo : ISellInfo
     {
-        public BasicSellInfo(DateTime startTime,  )
-        {
-
-        }
         public IProduct Product { get ; set ; }
         public double StartPrice { get ; set; }
         public double CurrentPrice { get; set; }
         public double MinGrowth { get ; set ; }
         public DateTime StartTime { get ; set ; }
         public int Id { get ; set ; }
-        public IBuyer LeadingBuyer { get; set; }
-        public DateTime LastChange { get; set; }
+        public IBuyer ?LeadingBuyer { get; set; }
+        public DateTime ?LastChange { get; set; }
         public SellState State { get; set; }
-        public double IntervalTime { get; set; }
+        public int IntervalTime { get; set; }
     }
 }
