@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AuctionSystem.AuctionManeger
 {
-    public class MasManeger : IAuctionManeger
+    public class MasManeger : IAuctionManeger, IDisposable
     {
         private List<IBuyer> _dispeseAtEnd;
         private event Action<ISellManeger> onStart;
@@ -70,6 +70,12 @@ namespace AuctionSystem.AuctionManeger
         {
             onStart += buyer.IsIntresting;
             _dispeseAtEnd.Add(buyer);
+        }
+
+        public void Dispose()
+        {
+            _dispeseAtEnd.ForEach(buyer => onStart -= buyer.IsIntresting);
+            _displayer.Display("displayed all in mas");
         }
     }
 }

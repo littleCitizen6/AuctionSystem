@@ -35,7 +35,7 @@ namespace RunChecker
             Dictionary<string, string> prop2 = new Dictionary<string, string>();
             prop2.Add("name", "apple Office");
             Office office = new Office(officeRooms, prop2);
-            ISellInfo info2 = new BasicSellInfo(office, 300, 25, DateTime.Now.AddSeconds(11), 5000, 2);
+            ISellInfo info2 = new BasicSellInfo(office, 800, 30, DateTime.Now.AddSeconds(11), 5000, 2);
             ISellManeger sellManeger2 = new MasSellManeger(displayer, info2);
             mas.AddSell(sellManeger2);
 
