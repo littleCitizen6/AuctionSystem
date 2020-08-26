@@ -48,6 +48,7 @@ namespace AuctionSystem.AuctionManeger
                             sell.StartSell();
                             });
                     });
+                    executer.Start();
                 }
             }
         }
