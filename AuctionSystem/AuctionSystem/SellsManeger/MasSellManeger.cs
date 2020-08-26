@@ -53,7 +53,7 @@ namespace AuctionSystem.SellsManeger
         {
             if (_disposeAtEnd.Count > 0)
             {
-                _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is over, buyer {SellInfo.LeadingBuyer.Name} has won... congeadulaition!!!!! ");
+                _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is over, buyer {SellInfo.LeadingBuyer.Name} has won... congradulation!!!!! ");
                 _disposeAtEnd.ForEach(buyer => onOffer -= buyer.IsWantToRaise);
             }
             else
@@ -67,17 +67,13 @@ namespace AuctionSystem.SellsManeger
         {
             onOffer += buyer.IsWantToRaise;
             _disposeAtEnd.Add(buyer);
-            if (SellInfo.State != SellState.InProgress)
-            {
-                SellInfo.State = SellState.InProgress;
-            }
             _displayer.Display($"agent {buyer.Name} have subscribe for {SellInfo.Id}");
         }
         public void StartSell() //notice that this happend after the event
         {
             _displayer.Display($"start sell {SellInfo.Id} on {SellInfo.Product.Properties["name"]}");
-            Thread.Sleep(SellInfo.IntervalTime);//ToDo: check if need to be inside of task with task delay
-            _displayer.Display("finish wait for subscriptions");
+            Thread.Sleep(SellInfo.IntervalTime);
+            _displayer.Display($"finish wait for subscriptions for sell {SellInfo.Id}");
             if (_disposeAtEnd.Count==0)
             {
                 SellOver();
@@ -85,13 +81,11 @@ namespace AuctionSystem.SellsManeger
             else
             {
                 Task manege = ManegeSell();
-               // manege.Start();
                 manege.Wait();
             }
         }
         private async Task ManegeSell()
         {
-            _displayer.Display("started task without start");
             var lastChanged = SellInfo.LastChange;
             while (SellInfo.State < SellState.finished)
             {

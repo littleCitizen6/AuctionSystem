@@ -1,4 +1,5 @@
 ﻿using AuctionSystem.Common;
+using AuctionSystem.SellsInfo;
 using AuctionSystem.SellsManeger;
 using System;
 using System.Collections.Concurrent;
@@ -48,6 +49,7 @@ namespace AuctionSystem.AuctionManeger
                         Parallel.ForEach<ISellManeger>(sellsAtTime, (sell) => {
                             _displayer.Display($"starting subscription to sell {sell.SellInfo.Id}");
                             onStart?.Invoke(sell);
+                            sell.SellInfo.State = SellState.WaitingForSubscriptions;
                             sell.StartSell();
                             });
                     });

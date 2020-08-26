@@ -14,9 +14,10 @@ namespace RunChecker
         static void Main(string[] args)
         {
             ConsoleDisplayer displayer = new ConsoleDisplayer();
-            IAuctionManeger mas = new MasManeger(displayer);
-            Agent lior = new PercentageAgent("lior", 100);
-            Agent dor = new PercentageAgent("dor", 50);
+            MasManeger mas = new MasManeger(displayer);
+            Agent lior = new PercentageAgent("lior", 100, displayer);
+            Agent dor = new PercentageAgent("dor", 50, displayer);
+            Agent ron = new PercentageAgent("ron", 50, displayer);
             List<double> rooms60 = new List<double>();
             rooms60.Add(34.5);
             rooms60.Add(24);
@@ -41,7 +42,10 @@ namespace RunChecker
 
             mas.Subscribe(dor);
             mas.Subscribe(lior);
+            mas.Subscribe(ron);
             mas.Run();
+
+            mas.Dispose();
             
         }
     }

@@ -9,6 +9,7 @@ namespace AuctionSystem.SellsInfo
     public enum SellState 
     {
         Pending,
+        WaitingForSubscriptions,
         InProgress,
         LastCall,
         finished
