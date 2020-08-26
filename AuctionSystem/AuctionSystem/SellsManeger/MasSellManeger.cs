@@ -39,6 +39,7 @@ namespace AuctionSystem.SellsManeger
             if (offerIsValid)// same if as before because i want the lock part will be as short as i can
             {
                 onOffer?.Invoke(this);
+                _displayer.Display($"buyer {buyer.Name} is now leading with offer {price} for {SellInfo.Id} sell on {SellInfo.Product.Properties["name"]} ");
             }
         }
 
@@ -69,9 +70,11 @@ namespace AuctionSystem.SellsManeger
             {
                 SellInfo.State = SellState.InProgress;
             }
+            _displayer.Display($"agent {buyer.Name} have subscribe for {SellInfo.Id}");
         }
         public void StartSell() //notice that this happend after the event
-        {  
+        {
+            _displayer.Display($"start sell {SellInfo.Id} on {SellInfo.Product.Properties["name"]}");
             Thread.Sleep(SellInfo.IntervalTime);//ToDo: check if need to be inside of task with task delay
             if (_disposeAtEnd.Count==0)
             {

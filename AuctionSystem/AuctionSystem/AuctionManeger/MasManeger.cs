@@ -14,8 +14,10 @@ namespace AuctionSystem.AuctionManeger
         private List<IBuyer> _dispeseAtEnd;
         private event Action<ISellManeger> onStart;
         public ConcurrentDictionary<DateTime, List<ISellManeger>> Sells { get; set; }
-        public MasManeger()
+        public IDisplayer _displayer;
+        public MasManeger(IDisplayer displayer)
         {
+            _displayer = displayer;
             _dispeseAtEnd = new List<IBuyer>();
         }
         public void AddSell(ISellManeger sellManeger) //Todo: validate Sell StartDate
@@ -41,6 +43,7 @@ namespace AuctionSystem.AuctionManeger
                             Task.Delay(excTime - DateTime.Now);
                         }
                         Parallel.ForEach<ISellManeger>(sellsAtTime, (sell) => {
+                            _displayer.Display($"starting subscription to sell {sell.SellInfo.Id}");
                             onStart?.Invoke(sell);
                             sell.StartSell();
                             });
