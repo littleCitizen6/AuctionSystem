@@ -44,7 +44,7 @@ namespace AuctionSystem.SellsManeger
 
         private bool OfferIsValid(double price)
         {
-            return price > SellInfo.CurrentPrice;
+            return price >= SellInfo.CurrentPrice + SellInfo.MinGrowth;
         }
 
         public void SellOver()
