@@ -16,8 +16,9 @@ namespace AuctionSystem.SellsManeger
         private event Action<ISellManeger> onOffer;
         public ISellInfo SellInfo { get; set; }
         
-        public MasSellManeger(IDisplayer displayer)
+        public MasSellManeger(IDisplayer displayer, ISellInfo info)
         {
+            SellInfo = info;
             _displayer = displayer;
             _disposeAtEnd = new List<IBuyer>();
         }
