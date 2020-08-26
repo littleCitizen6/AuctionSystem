@@ -6,6 +6,13 @@ using System.Text;
 
 namespace AuctionSystem.SellsInfo
 {
+    public enum SellState 
+    {
+        Pending,
+        InProgress,
+        LastCall,
+        finished
+    }
     public interface ISellInfo
     {
         IBuyer LeadingBuyer { get; set; }
@@ -16,5 +23,7 @@ namespace AuctionSystem.SellsInfo
         DateTime StartTime { get; set; }
         DateTime LastChange { get; set; }
         int Id { get; set; }
+        SellState State { get; set; }
+        double IntervalTime { get; set; }
     }
 }

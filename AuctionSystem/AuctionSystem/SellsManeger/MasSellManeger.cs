@@ -14,14 +14,13 @@ namespace AuctionSystem.SellsManeger
         private Object _locker = new object();
         private event Action<ISellManeger> onOffer;
         public ISellInfo SellInfo { get; set; }
-        public double IntervalTime { get; set; }
-        private double? TimeToEnd => (DateTime.Now - SellInfo.LastChange).TotalMilliseconds;
-        private bool _isLastCallMode;
+        
+        private double? TimeFromLastCall => (DateTime.Now - SellInfo.LastChange).TotalMilliseconds;//ToDo: check if necessery
+
         public MasSellManeger(IDisplayer displayer)
         {
             _displayer = displayer;
             _disposeAtEnd = new List<IBuyer>();
-            _isLastCallMode = false;
         }
 
         public void Offer(IBuyer buyer, double price)
@@ -50,14 +49,28 @@ namespace AuctionSystem.SellsManeger
 
         public void SellOver()
         {
-            _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is over, buyer {SellInfo.LeadingBuyer.Name} has won... congeadulaition!!!!! ");
-            _disposeAtEnd.ForEach(buyer => onOffer -= buyer.IsWantToRaise);
+            if (_disposeAtEnd.Count > 0)
+            {
+                _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is over, buyer {SellInfo.LeadingBuyer.Name} has won... congeadulaition!!!!! ");
+                _disposeAtEnd.ForEach(buyer => onOffer -= buyer.IsWantToRaise);
+            }
+            else
+            {
+                _displayer.Display($"the sell {SellInfo.Id} of {SellInfo.Product.Properties["name"]} is over because no one was intresting");
+            }
+            SellInfo.State = SellState.finished;
         }
 
         public void Subscribe(IBuyer buyer)
         {
             onOffer += buyer.IsWantToRaise;
             _disposeAtEnd.Add(buyer);
+            if (SellInfo.State != SellState.InProgress)
+            {
+                SellInfo.State = SellState.InProgress;
+            }
         }
+        //ToDo:make start method() task.delay => if agents =>start sell >><< close  
+        public void Start() { }
     }
 }

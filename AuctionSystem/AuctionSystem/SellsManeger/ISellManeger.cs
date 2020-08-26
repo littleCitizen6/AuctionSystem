@@ -11,7 +11,6 @@ namespace AuctionSystem.SellsManeger
         ISellInfo SellInfo { get; set; }
         void Offer(IBuyer buyer, double price);
         void Subscribe(IBuyer buyer);
-        double IntervalTime { get; set; }
         void SellOver();
     }
 }
