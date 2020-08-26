@@ -14,11 +14,14 @@ namespace AuctionSystem.SellsManeger
         private Object _locker = new object();
         private event Action<ISellManeger> onOffer;
         public ISellInfo SellInfo { get; set; }
-        public int TimeToEnd { get; set; }
+        public double IntervalTime { get; set; }
+        private double? TimeToEnd => (DateTime.Now - SellInfo.LastChange).TotalMilliseconds;
+        private bool _isLastCallMode;
         public MasSellManeger(IDisplayer displayer)
         {
             _displayer = displayer;
             _disposeAtEnd = new List<IBuyer>();
+            _isLastCallMode = false;
         }
 
         public void Offer(IBuyer buyer, double price)
@@ -31,6 +34,7 @@ namespace AuctionSystem.SellsManeger
                 {
                     SellInfo.CurrentPrice = price;
                     SellInfo.LeadingBuyer = buyer;
+                    SellInfo.LastChange = DateTime.Now;
                 }
             }
             if (offerIsValid)// same if as before because i want the lock part will be as short as i can

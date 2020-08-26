@@ -13,7 +13,8 @@ namespace AuctionSystem.SellsInfo
         double StartPrice { get; set; }
         double CurrentPrice { get; set; }
         double MinGrowth { get; set; }
-        DateTime Time { get; set; }
+        DateTime StartTime { get; set; }
+        DateTime LastChange { get; set; }
         int Id { get; set; }
     }
 }
