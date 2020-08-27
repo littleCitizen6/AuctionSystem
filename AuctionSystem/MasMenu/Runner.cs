@@ -14,7 +14,8 @@ namespace MasMenu
         {
             _controller = controller;
             _menuHendler = new MenuHendler();
-       //     _headMenu = MenuHendler.CreateNumberMenu(GetHeadMenuOptions());
+            _headMenu = MenuHendler.CreateNumberMenu(GetHeadMenuOptions());
+            InitMenus();
         }
         public void Run()
         {
@@ -23,20 +24,14 @@ namespace MasMenu
 
         private void InitMenus()
         {
-           // _menuHendler.Runner.AddMenu("1", _menuHendler.CreateStringsFunctionMenu(_controller.MissleFactory.GetMissles(), _controller.AddMissle));
-            //_menuHendler.Runner.AddMenu("head", _headMenu);
-            //_menuHendler.Runner.AddMenu("2", _menuHendler.CreateStringsFunctionMenu(GetFunc2MenuContent(), Launch));//ToDo: make this menu get TotalWar option and implement function
+            _menuHendler.Runner.AddMenu("head", _headMenu);
         }
-       /* private List<Option<int>> GetHeadMenuOptions()
+        private List<Option<int>> GetHeadMenuOptions()
         {
             var mainActions = new List<Option<int>>();
-            mainActions.Add(new Option<int>(1, _menuHendler.MoveToOtherMenu, "choose missle to add"));
-            mainActions.Add(new Option<int>(2, _menuHendler.MoveToOtherMenu, "choose missle to launch"));
-            mainActions.Add(new Option<int>(3, _controller.StockReport, "get stock report"));
-            mainActions.Add(new Option<int>(4, Remove, "remove missle"));
-            mainActions.Add(new Option<int>(5, _menuHendler.Exit, "exit from shayetet6"));
+            mainActions.Add(new Option<int>(1, _controller.GetFutureAuctions, "for look at the next sells"));
             return mainActions;
-        }*/
+        }
 
     }
 }
