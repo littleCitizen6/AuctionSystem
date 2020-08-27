@@ -23,16 +23,16 @@ namespace AuctionSystem.SellsManeger
             _disposeAtEnd = new List<IBuyer>();
         }
 
-        public void Offer(IBuyer buyer, double price)
+        public void Offer(Offer offer)
         {
             bool offerIsValid = false;
             lock (_locker)
             {
-                offerIsValid = OfferIsValid(price);
+                offerIsValid = OfferIsValid(offer.Price);
                 if (offerIsValid)
                 {
-                    SellInfo.CurrentPrice = price;
-                    SellInfo.LeadingBuyer = buyer;
+                    SellInfo.CurrentPrice = offer.Price;
+                    SellInfo.LeadingBuyer = offer.Buyer;
                     SellInfo.LastChange = DateTime.Now;
                     SellInfo.State = SellState.InProgress;
                 }
@@ -40,7 +40,7 @@ namespace AuctionSystem.SellsManeger
             if (offerIsValid)// same if as before because i want the lock part will be as short as i can
             {
                 onOffer?.Invoke(this);
-                _displayer.Display($"buyer {buyer.Name} is now leading with offer {price} for {SellInfo.Id} sell on {SellInfo.Product.Properties["name"]} ");
+                _displayer.Display($"buyer {offer.Buyer.Name} is now leading with offer {offer.Price} for {SellInfo.Id} sell on {SellInfo.Product.Properties["name"]} ");
             }
         }
 

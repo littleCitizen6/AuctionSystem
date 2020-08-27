@@ -29,7 +29,7 @@ namespace RunChecker
             ISellManeger sellManeger = new MasSellManeger(displayer, info);
             mas.AddSell(sellManeger);
 
-            List<double> officeRooms = new List<double>();
+            List<double> officeRooms = new List<double>();  
             officeRooms.Add(32);
             officeRooms.Add(41.3);
             officeRooms.Add(33.3);
