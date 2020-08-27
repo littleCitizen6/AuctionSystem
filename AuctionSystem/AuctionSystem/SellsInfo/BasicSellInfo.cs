@@ -20,6 +20,7 @@ namespace AuctionSystem.SellsInfo
             Id = id;
             State = SellState.Pending;
             Participates = new ConcurrentBag<IBuyer>();
+            OfferHistory = new ConcurrentQueue<Offer>();
 
         }
 
@@ -34,5 +35,6 @@ namespace AuctionSystem.SellsInfo
         public DateTime ?LastChange { get; set; }
         public SellState State { get; set; }
         public ConcurrentBag<IBuyer> Participates { get; set ; }
+        public ConcurrentQueue<Offer> OfferHistory { get; set; }
     }
 }

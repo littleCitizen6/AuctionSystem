@@ -9,7 +9,7 @@ namespace AuctionSystem.SellsManeger
     public interface ISellManeger
     {
         ISellInfo SellInfo { get; set; }
-        void Offer(IBuyer buyer, double price);
+        void Offer(Offer offer);
         void Subscribe(IBuyer buyer);
         void SellOver();
         void StartSell();

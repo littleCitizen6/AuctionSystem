@@ -28,5 +28,6 @@ namespace AuctionSystem.SellsInfo
         SellState State { get; set; }
         int IntervalTime { get; set; }
         ConcurrentBag<IBuyer> Participates { get; set; }
+        ConcurrentQueue<Offer> OfferHistory { get; set; }
     }
 }

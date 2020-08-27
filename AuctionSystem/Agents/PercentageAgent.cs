@@ -40,7 +40,7 @@ namespace Agents
             Thread t = new Thread(() => { 
                 if (_rander.Next(1, 101) <= _percentage && sellManeger.SellInfo.LeadingBuyer != this)
                 {
-                    sellManeger.Offer(this, sellManeger.SellInfo.CurrentPrice + sellManeger.SellInfo.MinGrowth);
+                    sellManeger.Offer(new Offer(this, sellManeger.SellInfo.CurrentPrice + sellManeger.SellInfo.MinGrowth));
                 }
             });
             t.Start();
