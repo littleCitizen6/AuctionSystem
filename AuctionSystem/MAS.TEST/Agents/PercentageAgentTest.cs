@@ -23,6 +23,7 @@ namespace MAS.TEST.Agents
         [TestInitialize]
         public void TestInit()
         {
+            _displayer = new ConsoleDisplayer();
             List<double> rooms60 = new List<double>();
             rooms60.Add(34.5);
             rooms60.Add(24);
