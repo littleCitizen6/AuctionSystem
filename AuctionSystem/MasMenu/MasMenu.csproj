@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Agents\Agents.csproj" />
+    <ProjectReference Include="..\AuctionSystem\AuctionSystem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="MenuBuilder">
       <HintPath>OutSourceDll\MenuBuilder.dll</HintPath>
     </Reference>
