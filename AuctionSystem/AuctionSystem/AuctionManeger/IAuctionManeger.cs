@@ -10,6 +10,7 @@ namespace AuctionSystem.AuctionManeger
 {
     public interface IAuctionManeger
     {
+        List<ISellManeger> AllSells { get; set; }
         ConcurrentDictionary<DateTime, List<ISellManeger>> Sells { get; set; }
         void Subscribe(IBuyer buyer);
         void Run();

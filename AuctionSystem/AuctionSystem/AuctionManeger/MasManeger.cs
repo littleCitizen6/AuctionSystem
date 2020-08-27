@@ -17,11 +17,13 @@ namespace AuctionSystem.AuctionManeger
         private event Action<ISellManeger> onStart;
         public ConcurrentDictionary<DateTime, List<ISellManeger>> Sells { get; set; }
         public IDisplayer _displayer;
+        public List<ISellManeger> AllSells { get; set; }
         public MasManeger(IDisplayer displayer)
         {
             Sells = new ConcurrentDictionary<DateTime, List<ISellManeger>>();
             _displayer = displayer;
             _dispeseAtEnd = new List<IBuyer>();
+            AllSells = new List<ISellManeger>();
         }
         public void AddSell(ISellManeger sellManeger) //Todo: validate Sell StartDate
         {
@@ -30,6 +32,7 @@ namespace AuctionSystem.AuctionManeger
                 Sells.TryAdd(sellManeger.SellInfo.StartTime, new List<ISellManeger>());
             }
             Sells[sellManeger.SellInfo.StartTime].Add(sellManeger);
+            AllSells.Add(sellManeger);
         }
 
         public void Run()
