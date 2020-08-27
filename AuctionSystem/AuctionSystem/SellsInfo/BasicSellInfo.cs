@@ -1,6 +1,7 @@
 ﻿using AuctionSystem.Common;
 using AuctionSystem.Products;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,7 +19,7 @@ namespace AuctionSystem.SellsInfo
             IntervalTime = intervalTime;
             Id = id;
             State = SellState.Pending;
-            Participates = new List<IBuyer>();
+            Participates = new ConcurrentBag<IBuyer>();
 
         }
 
@@ -32,6 +33,6 @@ namespace AuctionSystem.SellsInfo
         public IBuyer ?LeadingBuyer { get; set; }
         public DateTime ?LastChange { get; set; }
         public SellState State { get; set; }
-        public List<IBuyer> Participates { get; set ; }
+        public ConcurrentBag<IBuyer> Participates { get; set ; }
     }
 }

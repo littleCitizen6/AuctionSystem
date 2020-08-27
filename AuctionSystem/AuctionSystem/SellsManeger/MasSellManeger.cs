@@ -90,7 +90,12 @@ namespace AuctionSystem.SellsManeger
             var lastChanged = SellInfo.LastChange;
             while (SellInfo.State < SellState.finished)
             {
-                onOffer?.Invoke(this);
+                if (onOffer != null)
+                {
+                    var delegates = onOffer.GetInvocationList();
+                    Parallel.ForEach(delegates, d => d.DynamicInvoke(this));
+                    //onOffer?.Invoke(this);
+                }
                 await Task.Delay(SellInfo.IntervalTime);
                 if (lastChanged == SellInfo.LastChange)
                 {

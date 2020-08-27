@@ -1,6 +1,7 @@
 ﻿using AuctionSystem.Common;
 using AuctionSystem.Products;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,5 +27,6 @@ namespace AuctionSystem.SellsInfo
         int Id { get; set; }
         SellState State { get; set; }
         int IntervalTime { get; set; }
+        ConcurrentBag<IBuyer> Participates { get; set; }
     }
 }
