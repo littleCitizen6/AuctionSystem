@@ -1,4 +1,5 @@
 ﻿using AuctionSystem.Common;
+using AuctionSystem.Common.Extensions;
 using AuctionSystem.SellsInfo;
 using AuctionSystem.SellsManeger;
 using System;
@@ -44,7 +45,7 @@ namespace AuctionSystem.AuctionManeger
                     Task executer = new Task(() =>{
                         while (excTime > DateTime.Now)
                         {
-                            Task.Delay(excTime - DateTime.Now);
+                            Task.Delay(Convert.ToInt32((excTime - DateTime.Now).TotalSeconds).ZeroIfNegative());
                         }
                         Parallel.ForEach<ISellManeger>(sellsAtTime, (sell) => {
                             _displayer.Display($"starting subscription to sell {sell.SellInfo.Id}");
