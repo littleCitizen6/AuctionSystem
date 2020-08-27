@@ -68,6 +68,7 @@ namespace AuctionSystem.SellsManeger
             onOffer += buyer.IsWantToRaise;
             _disposeAtEnd.Add(buyer);
             _displayer.Display($"agent {buyer.Name} have subscribe for {SellInfo.Id}");
+            SellInfo.Participates.Add(buyer);
         }
         public void StartSell() //notice that this happend after the event
         {

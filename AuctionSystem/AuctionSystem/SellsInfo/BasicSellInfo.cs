@@ -18,6 +18,7 @@ namespace AuctionSystem.SellsInfo
             IntervalTime = intervalTime;
             Id = id;
             State = SellState.Pending;
+            Participates = new List<IBuyer>();
 
         }
 
@@ -31,5 +32,6 @@ namespace AuctionSystem.SellsInfo
         public IBuyer ?LeadingBuyer { get; set; }
         public DateTime ?LastChange { get; set; }
         public SellState State { get; set; }
+        public List<IBuyer> Participates { get; set ; }
     }
 }
