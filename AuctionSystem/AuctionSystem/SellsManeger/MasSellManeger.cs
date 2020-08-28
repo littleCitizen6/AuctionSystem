@@ -41,6 +41,7 @@ namespace AuctionSystem.SellsManeger
             {
                 onOffer?.Invoke(this);
                 _displayer.Display($"buyer {offer.Buyer.Name} is now leading with offer {offer.Price} for {SellInfo.Id} sell on {SellInfo.Product.Properties["name"]} ");
+                SellInfo.OfferHistory.Enqueue(offer);
             }
         }
 
