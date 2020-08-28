@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AuctionSystem.SellsInfo;
 
 namespace MasMenu
 {
@@ -23,6 +24,21 @@ namespace MasMenu
                 sell.SellInfo.Product.Properties.Keys.ToList().ForEach(prop => 
                 {
                     builder.AppendLine($"his prop {prop} is {sell.SellInfo.Product.Properties[prop]}");
+                });
+                builder.AppendLine();
+            });
+            return builder.ToString();
+        }
+        public string GetCurrentAuctions(string userInput)
+        {
+            StringBuilder builder = new StringBuilder();
+            _maneger.AllSells.Where(sell => sell.SellInfo.State < SellState.finished && sell.SellInfo.State > SellState.WaitingForSubscriptions).ToList().ForEach(sell =>
+            {
+                var timeToEnd = sell.SellInfo.IntervalTime - (((DateTime)sell.SellInfo.LastChange) - DateTime.Now).TotalMilliseconds ;
+                builder.AppendLine($"last offer is {sell.SellInfo.CurrentPrice}, these round end in {timeToEnd}");
+                sell.SellInfo.OfferHistory.ToList().ForEach(offer =>
+                {
+                    builder.AppendLine($"the offer is {offer.Price} by {offer.Buyer.Name} at {offer.Time}");
                 });
                 builder.AppendLine();
             });
