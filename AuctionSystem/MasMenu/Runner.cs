@@ -30,6 +30,7 @@ namespace MasMenu
         {
             var mainActions = new List<Option<int>>();
             mainActions.Add(new Option<int>(1, _controller.GetFutureAuctions, "for look at the next sells"));
+            mainActions.Add(new Option<int>(2, _controller.GetCurrentAuctions, "for look at the auction that preforming right now"));
             return mainActions;
         }
 

@@ -35,7 +35,7 @@ namespace MasMenu
             _maneger.AllSells.Where(sell => sell.SellInfo.State < SellState.finished && sell.SellInfo.State > SellState.WaitingForSubscriptions).ToList().ForEach(sell =>
             {
                 var timeToEnd = sell.SellInfo.IntervalTime - (((DateTime)sell.SellInfo.LastChange) - DateTime.Now).TotalMilliseconds ;
-                builder.AppendLine($"last offer is {sell.SellInfo.CurrentPrice}, these round end in {timeToEnd}");
+                builder.AppendLine($"last price that offered is {sell.SellInfo.CurrentPrice}, these round end in {timeToEnd} there is {sell.SellInfo.OfferHistory.Count}");
                 sell.SellInfo.OfferHistory.ToList().ForEach(offer =>
                 {
                     builder.AppendLine($"the offer is {offer.Price} by {offer.Buyer.Name} at {offer.Time}");
