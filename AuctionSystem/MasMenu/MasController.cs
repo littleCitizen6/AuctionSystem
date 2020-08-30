@@ -44,5 +44,15 @@ namespace MasMenu
             });
             return builder.ToString();
         }
+        public string GetFinishedAuctions
+            (string userInput)
+        {
+            StringBuilder builder = new StringBuilder();
+            _maneger.AllSells.Where(sell => sell.SellInfo.State == SellState.finished).ToList().ForEach(sell =>
+            {
+                builder.AppendLine($"auction of {sell.SellInfo.Product.Properties["name"]}, have finished in price of {sell.SellInfo.CurrentPrice}, by {sell.SellInfo.LeadingBuyer.Name}");
+            });
+            return builder.ToString();
+        }
     }
 }
